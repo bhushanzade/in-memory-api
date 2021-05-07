@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="title">
+        <button class="btn btn-primary float-right" (click)="backToList()">Back To Document</button>
+        <h3 class=""> {{doc_id ? 'Edit' : 'Create'}} Document</h3>
+    </div>
+
+    <form class="mt-5" [formGroup]="reactiveForm">
+        <div class="form-group">
+            <label><b>Document Name</b></label>
+            <input type="text" class="form-control" id="doc_name" [(ngModel)]="model.document_name"
+                placeholder="Write document name" formControlName="document_name"
+                [ngClass]="{ 'is-invalid': !f.document_name.valid && f.document_name.errors && f.document_name.touched }">
+            <p *ngIf="f.document_name.errors" class="invalid-feedback">
+                <span *ngIf="f.document_name.errors.required && f.document_name.touched">This field is
+                    required.</span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label><b>Write Document</b></label>
+            <ckeditor [config]="ckConfig" [(ngModel)]="model.document" [editor]="Editor" formControlName="document"
+                [ngClass]="{ 'is-invalid': !f.document.valid && f.document.errors && f.document.touched }"></ckeditor>
+            <p *ngIf="f.document.errors" class="invalid-feedback">
+                <span *ngIf="f.document.errors.required && f.document.touched">This field is
+                    required.</span>
+            </p>
+        </div>
+        <button (click)="saveDocument()" type="submit" class="btn btn-primary"> {{doc_id ? 'Update' : 'Create'}} Document</button>
+    </form>
+</div>
